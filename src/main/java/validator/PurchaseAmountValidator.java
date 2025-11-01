@@ -1,8 +1,8 @@
 package validator;
 
-public class PurchaseAmountValidator {
-    private static final Integer LottoPrice = 1000;
+import lotto.model.LottoState;
 
+public class PurchaseAmountValidator {
     public static void validate(String PurchaseAmount) {
         validateNumber(PurchaseAmount);
         int parsedPurchaseAmount = Integer.parseInt(PurchaseAmount);
@@ -21,7 +21,7 @@ public class PurchaseAmountValidator {
     }
 
     private static void validateMultipleOfThousand(int purchaseAmount) {
-        if (purchaseAmount % LottoPrice != 0)
+        if (purchaseAmount % LottoState.price.getState() != 0)
             throw new IllegalArgumentException("로또는 1000원단위입니다.");
     }
 }

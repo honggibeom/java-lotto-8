@@ -1,9 +1,8 @@
 package validator;
 
-public class BonusNumberValidator {
-    private static final Integer MaxNumber = 45;
-    private static final Integer MinNumber = 1;
+import lotto.model.LottoState;
 
+public class BonusNumberValidator {
     public static void validate(String BonusNumber) {
         validateNumber(BonusNumber);
         int parsedBonusNumber = Integer.parseInt(BonusNumber);
@@ -16,7 +15,7 @@ public class BonusNumberValidator {
     }
 
     private static void validateBetweenMinNumberThanMaxNumber(int bonusNumber) {
-        if (bonusNumber < MinNumber || bonusNumber >= MaxNumber)
+        if (bonusNumber < LottoState.MinNumber.getState() || bonusNumber >= LottoState.MaxNumber.getState())
             throw new IllegalArgumentException("보너스 숫자는 1~45사이의 숫자를 입력해야합니다.");
     }
 }
