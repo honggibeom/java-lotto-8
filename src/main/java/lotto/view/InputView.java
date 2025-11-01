@@ -3,18 +3,17 @@ package lotto.view;
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
-
-    String askLottoPrice() {
+    public String askLottoPrice() {
         System.out.println("구입금액을 입력해 주세요.");
         return Console.readLine();
     }
 
-    String askWinningNumbers(){
+    public String askWinningNumbers(){
         System.out.println("당첨 번호를 입력해 주세요.");
         return Console.readLine();
     }
 
-    String askBonusNumbers(){
+    public String askBonusNumbers(){
         System.out.println("보너스 번호를 입력해 주세요.");
         return Console.readLine();
     }
