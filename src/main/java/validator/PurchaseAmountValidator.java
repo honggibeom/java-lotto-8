@@ -1,6 +1,6 @@
 package validator;
 
-public class purchaseAmountValidator {
+public class PurchaseAmountValidator {
     private static final Integer LottoPrice = 1000;
 
     public static void validate(String PurchaseAmount) {
