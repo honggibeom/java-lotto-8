@@ -1,11 +1,10 @@
 package lotto.service;
 
-import lotto.Lotto;
+import lotto.model.Lotto;
 import lotto.model.LottoState;
 import lotto.model.WinningCondition;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LottoResultService {
     List<Lotto> lotteries;
@@ -17,7 +16,7 @@ public class LottoResultService {
         this.lotteries = lotteries;
         this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
-        this. winningLottoCount = new HashMap<>();
+        this.winningLottoCount = new HashMap<>();
         Arrays.stream(WinningCondition.values())
                 .forEach(winningCondition -> winningLottoCount.put(winningCondition.getRank(), 0));
     }

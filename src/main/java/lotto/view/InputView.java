@@ -8,12 +8,12 @@ public class InputView {
         return Console.readLine();
     }
 
-    public String askWinningNumbers(){
+    public String askWinningNumbers() {
         System.out.println("\n당첨 번호를 입력해 주세요.");
         return Console.readLine();
     }
 
-    public String askBonusNumbers(){
+    public String askBonusNumbers() {
         System.out.println("\n보너스 번호를 입력해 주세요.");
         return Console.readLine();
     }

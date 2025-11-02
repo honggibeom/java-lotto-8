@@ -3,15 +3,15 @@ package validator;
 import lotto.model.LottoState;
 
 public class PurchaseAmountValidator {
-    public static void validate(String PurchaseAmount) {
-        validateNumber(PurchaseAmount);
-        int parsedPurchaseAmount = Integer.parseInt(PurchaseAmount);
+    public static void validate(String purchaseAmount) {
+        validateNumber(purchaseAmount);
+        int parsedPurchaseAmount = Integer.parseInt(purchaseAmount);
         validateGreaterThanZero(parsedPurchaseAmount);
         validateMultipleOfThousand(parsedPurchaseAmount);
     }
 
-    private static void validateNumber(String PurchaseAmount) {
-        if (PurchaseAmount.matches("^[0-9]"))
+    private static void validateNumber(String purchaseAmount) {
+        if (purchaseAmount.matches("^[0-9]"))
             throw new IllegalArgumentException("숫자를 입력해주세요.");
     }
 

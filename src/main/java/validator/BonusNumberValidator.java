@@ -3,14 +3,14 @@ package validator;
 import lotto.model.LottoState;
 
 public class BonusNumberValidator {
-    public static void validate(String BonusNumber) {
-        validateNumber(BonusNumber);
-        int parsedBonusNumber = Integer.parseInt(BonusNumber);
+    public static void validate(String bonusNumber) {
+        validateNumber(bonusNumber);
+        int parsedBonusNumber = Integer.parseInt(bonusNumber);
         validateBetweenMinNumberThanMaxNumber(parsedBonusNumber);
     }
 
-    private static void validateNumber(String BonusNumber) {
-        if (BonusNumber.matches("[^0-9]"))
+    private static void validateNumber(String bonusNumber) {
+        if (bonusNumber.matches("[^0-9]"))
             throw new IllegalArgumentException("숫자를 입력해주세요.");
     }
 
