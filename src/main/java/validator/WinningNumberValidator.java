@@ -3,6 +3,7 @@ package validator;
 import lotto.error.IllegalArgumentExceptionFactory;
 import lotto.model.LottoState;
 import lotto.error.ErrorMessage;
+
 import java.util.Arrays;
 
 
@@ -13,7 +14,7 @@ public class WinningNumberValidator {
     }
 
     private static void validateOnlyNumbersAndCommas(String winningNumber) {
-        String regex = "^[0-9]+(,[0-9]+){"+(LottoState.numberCount.getState()-1)+"}$";
+        String regex = "^[0-9]+(,[0-9]+){" + (LottoState.numberCount.getState() - 1) + "}$";
         if (!winningNumber.matches(regex))
             throw IllegalArgumentExceptionFactory.create(ErrorMessage.enterOnlyNumbersAndCommas.getErrorMessage());
     }
