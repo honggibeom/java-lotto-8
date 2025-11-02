@@ -1,0 +1,55 @@
+package lotto.view;
+
+import lotto.Lotto;
+import lotto.model.WinningCondition;
+
+import java.util.List;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+public class OutputView {
+    public void printLottoCount(int lottoCount) {
+        System.out.printf("\n%d개를 구매했습니다.%n", lottoCount);
+    }
+
+    public void printLotteriesNumber(List<Lotto> lotteries) {
+        lotteries.forEach(this::printLottoNumber);
+    }
+
+    public void printLottoNumber(Lotto lotto) {
+        String numbers = lotto.getNumbers().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+        System.out.println("[" + numbers + "]");
+    }
+
+    public void printWinningLottoCount(List<Integer> winningLottoCounts) {
+        NumberFormat nf = NumberFormat.getInstance(Locale.KOREA);
+        WinningCondition[] conditions = WinningCondition.values();
+        System.out.println("\n당첨통계");
+        System.out.println("---");
+        for (int i = conditions.length - 1; i >= 0; i--) {
+            WinningCondition condition = conditions[i];
+            int count = winningLottoCounts.get(i);
+
+            String matchBonusText = "";
+            if (condition.getMatchBonusNumber()) {
+                matchBonusText = ", 보너스 볼 일치";
+            }
+
+            String output = String.format(
+                    "%d개 일치%s (%s원) - %d개",
+                    condition.getMatchNumberCount(),
+                    matchBonusText,
+                    nf.format(condition.getWinningPrize()),
+                    count
+            );
+            System.out.println(output);
+        }
+    }
+
+    public void printLottoProfit(double profit) {
+        System.out.printf("총 수익률은 %.1f%%입니다.%n", profit);
+    }
+}
