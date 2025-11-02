@@ -1,8 +1,10 @@
 package validator;
 
+import lotto.error.IllegalArgumentExceptionFactory;
 import lotto.model.LottoState;
-
+import lotto.error.ErrorMessage;
 import java.util.Arrays;
+
 
 public class WinningNumberValidator {
     public static void validate(String winningNumber) {
@@ -11,8 +13,9 @@ public class WinningNumberValidator {
     }
 
     private static void validateOnlyNumbersAndCommas(String winningNumber) {
-        if (!winningNumber.matches("^[0-9]+(,[0-9]+){5}$"))
-            throw new IllegalArgumentException("숫자6개를 컴마로 구분하여 입력해주세요");
+        String regex = "^[0-9]+(,[0-9]+){"+(LottoState.numberCount.getState()-1)+"}$";
+        if (!winningNumber.matches(regex))
+            throw IllegalArgumentExceptionFactory.create(ErrorMessage.enterOnlyNumbersAndCommas.getErrorMessage());
     }
 
     private static void validateGreaterThanMinNumberAndSmallerThanMaxNumber(String winningNumber) {
@@ -20,6 +23,6 @@ public class WinningNumberValidator {
                 .map(Integer::parseInt)
                 .anyMatch(num -> num < LottoState.MinNumber.getState() || num > LottoState.MaxNumber.getState());
         if (isGreaterThanZeroAndSmallerThan46)
-            throw new IllegalArgumentException("보너스 숫자는 1~45사이의 숫자를 입력해야합니다.");
+            throw IllegalArgumentExceptionFactory.create(ErrorMessage.enterBetweenMinNumberThanMaxNumber.getErrorMessage());
     }
 }

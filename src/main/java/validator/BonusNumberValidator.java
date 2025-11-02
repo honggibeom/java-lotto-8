@@ -1,5 +1,7 @@
 package validator;
 
+import lotto.error.ErrorMessage;
+import lotto.error.IllegalArgumentExceptionFactory;
 import lotto.model.LottoState;
 
 public class BonusNumberValidator {
@@ -11,11 +13,11 @@ public class BonusNumberValidator {
 
     private static void validateNumber(String bonusNumber) {
         if (!bonusNumber.matches("-?\\d+"))
-            throw new IllegalArgumentException("숫자를 입력해주세요.");
+            throw IllegalArgumentExceptionFactory.create(ErrorMessage.enterNumber.getErrorMessage());
     }
 
     private static void validateBetweenMinNumberThanMaxNumber(int bonusNumber) {
         if (bonusNumber < LottoState.MinNumber.getState() || bonusNumber > LottoState.MaxNumber.getState())
-            throw new IllegalArgumentException("보너스 숫자는 1~45사이의 숫자를 입력해야합니다.");
+            throw IllegalArgumentExceptionFactory.create(ErrorMessage.enterBetweenMinNumberThanMaxNumber.getErrorMessage());
     }
 }
