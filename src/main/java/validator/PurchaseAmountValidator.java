@@ -11,7 +11,7 @@ public class PurchaseAmountValidator {
     }
 
     private static void validateNumber(String purchaseAmount) {
-        if (!purchaseAmount.matches("\\d+"))
+        if (!purchaseAmount.matches("-?\\d+"))
             throw new IllegalArgumentException("숫자를 입력해주세요.");
     }
 

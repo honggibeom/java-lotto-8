@@ -10,7 +10,7 @@ public class BonusNumberValidator {
     }
 
     private static void validateNumber(String bonusNumber) {
-        if (!bonusNumber.matches("\\d+"))
+        if (!bonusNumber.matches("-?\\d+"))
             throw new IllegalArgumentException("숫자를 입력해주세요.");
     }
 
