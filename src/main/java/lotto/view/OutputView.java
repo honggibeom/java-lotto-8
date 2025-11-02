@@ -27,25 +27,18 @@ public class OutputView {
     public void printWinningLottoCount(List<Integer> winningLottoCounts) {
         NumberFormat nf = NumberFormat.getInstance(Locale.KOREA);
         WinningCondition[] conditions = WinningCondition.values();
-        System.out.println("\n당첨통계");
-        System.out.println("---");
+        System.out.println("\n당첨통계\n---");
+
         for (int i = conditions.length - 1; i >= 0; i--) {
-            WinningCondition condition = conditions[i];
+            WinningCondition c = conditions[i];
             int count = winningLottoCounts.get(i);
-
-            String matchBonusText = "";
-            if (condition.getMatchBonusNumber()) {
-                matchBonusText = ", 보너스 볼 일치";
-            }
-
-            String output = String.format(
-                    "%d개 일치%s (%s원) - %d개",
-                    condition.getMatchNumberCount(),
-                    matchBonusText,
-                    nf.format(condition.getWinningPrize()),
-                    count
-            );
-            System.out.println(output);
+            String matchBonus = "";
+            if (c.getMatchBonusNumber()) matchBonus = ", 보너스 볼 일치";
+            System.out.printf("%d개 일치%s (%s원) - %d개%n",
+                    c.getMatchNumberCount(),
+                    matchBonus,
+                    nf.format(c.getWinningPrize()),
+                    count);
         }
     }
 
