@@ -4,7 +4,11 @@ import lotto.model.Lotto;
 import lotto.model.LottoState;
 import lotto.model.WinningCondition;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.Arrays;
 
 public class LottoResultService {
     List<Lotto> lotteries;
