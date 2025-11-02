@@ -25,31 +25,47 @@ public class LottoController {
         this.outputView = outPutView;
     }
 
-    public void run() {
-        String purchaseAmount = InputUtils.askAndValidate(
-                inputView::askPurchaseAmount,
-                PurchaseAmountValidator::validate
-        );
+    public void startLottoGame() {
+        int lottoCount = getLottoCountFromPurchase();
+        List<Lotto> lotteries = drawLotteries(lottoCount);
+        Set<Integer> winningNumbers = getWinningNumbers();
+        int bonusNumber = getBonusNumber();
+        LottoResultService resultService = new LottoResultService(lotteries, winningNumbers, bonusNumber);
+        resultService.countWinningLotteries();
+        printResults(resultService);
+    }
+
+    private int getLottoCountFromPurchase() {
+        String purchaseAmount = InputUtils.askAndValidate(inputView::askPurchaseAmount, PurchaseAmountValidator::validate);
         int lottoCount = LottoState.price.calculateLottoCountFromAmount(Integer.parseInt(purchaseAmount));
         outputView.printLottoCount(lottoCount);
+        return lottoCount;
+    }
 
+    private Set<Integer> getWinningNumbers() {
+        String winningNumber = InputUtils.askAndValidate(inputView::askWinningNumbers, WinningNumberValidator::validate);
+        return Arrays.stream(winningNumber.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
+    }
+
+    private int getBonusNumber() {
+        String bonusNumber = InputUtils.askAndValidate(inputView::askBonusNumbers, BonusNumberValidator::validate);
+        return Integer.parseInt(bonusNumber);
+    }
+
+    private List<Lotto> drawLotteries(int lottoCount) {
         LottoDrawService lottoDrawService = new LottoDrawService();
         List<Lotto> lotteries = lottoDrawService.drawLotteries(lottoCount);
         outputView.printLotteriesNumber(lotteries);
+        return lotteries;
+    }
 
-        String winningNumber = InputUtils.askAndValidate(inputView::askWinningNumbers, WinningNumberValidator::validate);
-        Set<Integer> winningNumberSet = Arrays.stream(winningNumber.split(","))
-                .map(Integer::parseInt)   // 문자열 -> 정수
-                .collect(Collectors.toSet());
-
-        String bonusNumber = InputUtils.askAndValidate(inputView::askBonusNumbers, BonusNumberValidator::validate);
-
-        LottoResultService lottoResultService = new LottoResultService(lotteries, winningNumberSet, Integer.parseInt(bonusNumber));
-        lottoResultService.countWinningLotteries();
-
-        List<Integer> winningLottoCount = lottoResultService.getAllWinningLottoCount();
+    private void printResults(LottoResultService resultService) {
+        List<Integer> winningLottoCount = resultService.getAllWinningLottoCount();
         outputView.printWinningLottoCount(winningLottoCount);
-        double profit = lottoResultService.calculateProfit();
+
+        double profit = resultService.calculateProfit();
         outputView.printLottoProfit(profit);
     }
 }
